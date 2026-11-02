@@ -342,6 +342,20 @@ export function getPackageHistory(state: StudioDomainState, packageId: string): 
     .sort((a, b) => b.timestamp.localeCompare(a.timestamp))
 }
 
+export function getActivePackage(state: StudioDomainState, studentId: string): Package | undefined {
+  // Retorna el paquete activo con saldo o el más recientemente asignado
+  const activeWithBalance = state.packages
+    .filter((p) => p.studentId === studentId && p.status === 'active' && p.available > 0)
+    .sort((a, b) => a.assignedAt.localeCompare(b.assignedAt))[0]
+
+  if (activeWithBalance) return activeWithBalance
+
+  // Si no hay con saldo, busca el último paquete (incluso si está agotado)
+  return state.packages
+    .filter((p) => p.studentId === studentId)
+    .sort((a, b) => b.assignedAt.localeCompare(a.assignedAt))[0]
+}
+
 export function getStudentHistory(state: StudioDomainState, studentId: string): Movement[] {
   return state.movements
     .filter((m) => m.studentId === studentId)

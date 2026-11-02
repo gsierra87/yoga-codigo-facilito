@@ -1,92 +1,83 @@
-# Estudio de Yoga — Gestión de Paquetes y Asistencias (SDD)
+# Estudio de Yoga — Plataforma de Gestión Zen (SDD & Producción)
 
-Este proyecto es una aplicación web para la administración de un estudio de yoga, desarrollada aplicando **Spec Driven Development (SDD)**.
-
-El alcance de este ejercicio se centra en el feature más importante del estudio: la **gestión digital de paquetes de 10 clases y control de asistencias**, reemplazando las tarjetas físicas de papel por un registro confiable con auditoría completa.
+Sistema de gestión para el estudio de yoga de Andrea (*Prana Yoga Studio*), desarrollado con **Next.js (App Router)**, **TypeScript**, **Tailwind CSS** y **Vitest**, aplicando rigurosamente **Spec Driven Development (SDD)**.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🌟 Estado de las Entregas
 
-- `AGENTS.md`: Contexto persistente, reglas de negocio y pautas para el agente y el equipo.
-- `specs/SPEC-001-gestion-paquetes.md`: Especificación funcional formal con los 5 Criterios de Aceptación (CA-01 a CA-05).
-- `.agent/skills/yoga-marca/SKILL.md`: Skill de diseño con la paleta de identidad visual (#FAF8F3, #718B78, #314A3A, #EEE5D8, #C77D65) y pautas UX mobile-first.
-- `lib/package-management.ts`: Capa de dominio pura en TypeScript con las reglas de negocio, validaciones y datos de prueba.
-- `tests/package-management.test.ts`: Suite de pruebas automatizadas con Vitest que valida los 5 criterios de aceptación y casos de error.
-- `app/admin/paquetes/page.tsx`: Pantalla principal del feature central de paquetes, asistencias y ajustes.
-- `ENTREGA.md`: Documento de entrega reflexivo en primera persona.
+- ✅ **Tarea 1 & 2:** `specs/SPEC-001-gestion-paquetes.md` (Gestión de paquetes de 10 clases, saldos no negativos, prevención de duplicados, auditoría y ajustes).
+- ✅ **Tarea 3 (Actual):**
+  - **Paso 1:** Definición formal de ICP y User Personas (`specs/ICP-USER-PERSONA.md`).
+  - **Paso 2:** Nueva `specs/SPEC-002-sala-en-vivo-y-alertas.md` (Monitor de Sala en Vivo de 12 Mats, Quick Check-in, Semáforo Zen y métricas de éxito).
+  - **Paso 3:** Lanzamiento a producción en **Vercel** (`ENTREGA-TAREA-3.md`).
 
 ---
 
-## 🚀 Requisitos e Instalación
+## 📁 Arquitectura y Especificaciones
 
-- Node.js (versión 20 o superior recomendada; probado en v24)
-- pnpm (o npm)
-
-Para instalar las dependencias:
-
-```bash
-pnpm install
+```text
+├── specs/
+│   ├── ICP-USER-PERSONA.md             # Paso 1: ICP, atributos firmográficos y User Personas
+│   ├── SPEC-001-gestion-paquetes.md     # SPEC-001: Núcleo de paquetes y asistencias
+│   └── SPEC-002-sala-en-vivo-y-alertas.md # Paso 2: Monitor de 12 mats, cupo estricto y alertas
+├── lib/
+│   ├── package-management.ts          # Dominio puro de paquetes y auditoría
+│   └── live-room.ts                   # Dominio puro de sala en vivo y semáforo zen
+├── tests/
+│   ├── package-management.test.ts     # 12 tests para SPEC-001
+│   └── spec-002.test.ts               # 7 tests para SPEC-002
+├── app/
+│   ├── page.tsx                       # Home renovado con selector de roles e identidad zen
+│   ├── admin/
+│   │   ├── sala/page.tsx              # Monitor interactivo de los 12 mats en vivo
+│   │   └── paquetes/page.tsx          # Pantalla de paquetes y ajustes
+│   └── alumna/page.tsx                # Pase Digital Zen con alertas de renovación y WhatsApp
+└── .agent/skills/yoga-marca/          # Identidad visual (#FAF8F3, #718B78, #314A3A, #EEE5D8, #C77D65)
 ```
 
 ---
 
-## 🧪 Ejecución de Pruebas Automatizadas
+## 🧪 Pruebas Automatizadas (19 Tests Aprobados)
 
-Para correr la suite de pruebas unitarias y de integración que valida los criterios de aceptación:
+Ambas especificaciones están respaldadas por suites de pruebas automatizadas en Vitest:
 
 ```bash
 pnpm test
 ```
 
-Para correr las pruebas en modo interactivo con recarga en vivo:
+Salida esperada:
+```text
+ ✓ tests/spec-002.test.ts (7 tests)
+ ✓ tests/package-management.test.ts (12 tests)
 
-```bash
-pnpm vitest
+ Test Files  2 passed (2)
+      Tests  19 passed (19)
 ```
 
 ---
 
-## 🖥️ Ejecutar la Aplicación Web
+## 🚀 Despliegue a Producción (Vercel)
 
-### Opción 1 — Mediante scripts automáticos:
-- En **Windows (PowerShell)**:
-  ```powershell
-  .\iniciar.ps1
-  ```
-- En **Windows (CMD o doble clic)**:
-  ```cmd
-  iniciar.bat
-  ```
+El proyecto está listo para producción y versionado en GitHub:  
+👉 **`https://github.com/gsierra87/yoga-codigo-facilito`**
 
-### Opción 2 — Modo manual:
+Para desplegarlo en 1 minuto:
+1. Conectate a [vercel.com/new](https://vercel.com/new).
+2. Importá el repositorio `yoga-codigo-facilito`.
+3. Vercel detecta Next.js automáticamente y ejecuta `pnpm build`.
+4. ¡Listo! La URL de producción quedará activa con HTTPS automático.
+
+---
+
+## 🖥️ Ejecución Local
+
 ```bash
+pnpm install
 pnpm dev
 ```
 
-Luego abrí [http://localhost:3000](http://localhost:3000) en el navegador.
-
-- En la pantalla de bienvenida podés ingresar directamente al feature central haciendo clic en **"Gestión de Paquetes y Asistencias (SDD)"** o navegar como **Administradora** (`/admin`) o **Instructora** (`/instructora`).
-- La pantalla específica del feature se encuentra en `/admin/paquetes`.
-
-Para compilar la versión optimizada de producción:
-
-```bash
-pnpm build
-pnpm start
-```
-
----
-
-## 🧘 Datos de Demostración Incluidos
-
-El sistema incluye datos iniciales precargados listos para probar:
-- **Andrea Molina:** Administradora del estudio.
-- **Carla Ruiz y Sofía Benítez:** Instructoras.
-- **Valentina López:** Alumna con paquete nuevo recién asignado (10 clases disponibles, 0 usadas).
-- **Martina Gómez:** Alumna con uso parcial (4 clases disponibles, 6 usadas e historial de asistencias).
-- **Camila Díaz:** Alumna con paquete agotado (0 disponibles, 10 usadas).
-- **Lucía Fernández:** Alumna con 7 disponibles y 3 usadas.
-- **Julieta Romero:** Alumna registrada sin paquete activo.
-
-Podés hacer clic en **"Reiniciar Demo Seed"** en la esquina superior de la pantalla de paquetes para volver al estado inicial en cualquier momento.
+Abrí [http://localhost:3000](http://localhost:3000) en el navegador:
+- **Monitor de Sala en Vivo (12 Mats):** `/admin/sala`
+- **Gestión de Paquetes:** `/admin/paquetes`
+- **Pase Digital de Alumna:** `/alumna`

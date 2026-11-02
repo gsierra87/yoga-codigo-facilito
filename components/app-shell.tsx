@@ -39,6 +39,7 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
   const nav: Record<Role, NavItem[]> = {
     admin: [
       { href: '/admin', label: 'Inicio', icon: LayoutDashboard, exact: true },
+      { href: '/admin/sala', label: 'Sala en Vivo (12 Mats)', icon: Sparkles },
       { href: '/admin/paquetes', label: 'Paquetes y Asistencia', icon: PackageCheck },
       { href: '/admin/clases', label: 'Clases', icon: CalendarDays },
       { href: '/admin/alumnas', label: 'Alumnas', icon: Users },
@@ -46,6 +47,7 @@ export function AppShell({ role, children }: { role: Role; children: ReactNode }
     ],
     instructor: [
       { href: '/instructora', label: 'Mis clases', icon: CalendarCheck },
+      { href: '/admin/sala', label: 'Sala en Vivo (12 Mats)', icon: Sparkles },
       { href: '/admin/paquetes', label: 'Tomar Asistencia', icon: PackageCheck },
     ],
     student: [
